@@ -7,11 +7,12 @@ class Grupo{
     method agregarMiembro(unGladiador) {miembros.add(unGladiador)}
     method eliminarMiembro(unGladiador) {miembros.remove(unGladiador)}
     method getMiembros() = miembros 
+    method getCantPeleas() = cantidadPeleas 
     method elegirCampeon(){
         return miembros.filter({e => e.getPuntosDeVida() > 0}).max({e => e.poderDeAtaque()})
     }
     method combatir(otroGrupo) {
-      3.times({self.elegirCampeon().pelear(otroGrupo.elegirCampeon())})
+      3.times({i => self.elegirCampeon().pelear(otroGrupo.elegirCampeon())})
       cantidadPeleas +=1
     }
 

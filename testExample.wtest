@@ -1,9 +1,125 @@
-import example.pepita
+import armas.*
+import armaduras.*
+import gladiadores.*
+import grupos.*
+import coliseo.*
 
-describe "group of tests for pepita" {
+describe "Test" {
+  
+ const espada = new ArmaDeFilo(longitud = 20, filo = 1) 
+ const daga = new ArmaDeFilo(longitud = 5, filo =1)
+ const maza = new ArmaContundente(peso = 20)
+ const martillo = new ArmaContundente(peso = 15)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
+ const cascoBici = new Casco()
+ const escudo = new Escudo()
+
+ const tomi = new Mirmillone(armaActual = daga, armaduraActual= cascoBici, fuerza = 9)
+ const charles = new Mirmillone(armaActual = espada, armaduraActual= escudo, fuerza= 15)
+ const jeronimo = new Dimachaeru(destreza = 5)
+ const messi = new Dimachaeru(destreza = 10)
+ 
+ const bestias = new Grupo(nombre = "Los bestias")
+
+ method initialize(){
+  jeronimo.agregarArma(maza)
+  jeronimo.agregarArma(martillo)
+  messi.agregarArma(maza)
+
+  bestias.agregarMiembro(jeronimo)
+  bestias.agregarMiembro(messi)
+
+
+ }
+
+ test "Poder de ataque de tomi" {
+   assert.equals(14, tomi.poderDeAtaque())
+ }
+
+ test "poder de ataque de messi" {
+   assert.equals(30, messi.poderDeAtaque())
+ }
+
+
+ test "poder de ataque de jeronimo" {
+   assert.equals(45, jeronimo.poderDeAtaque())
+ }
+
+ test "defensa tomi" {
+   assert.equals(25, tomi.defensa())
+ }
+
+ test "defensa charles" {
+   assert.equals(21.5, charles.defensa())
+ }
+ test "defensa jeronimo" {
+   assert.equals(2.5, jeronimo.defensa())
+ }
+
+ test "grupo echo por un Mirmillone" {
+   const grupoCreado = tomi.crearGrupoCon(charles)
+   assert.equals("mirmillolandia", grupoCreado.nombre())
+ }
+
+ test "grupo creado por un Dimitrcu" {
+   const grupoCreado = jeronimo.crearGrupoCon(tomi)
+   assert.equals("D-59", grupoCreado.nombre())
+ }
+
+ test "pelear messi con tomi" {
+   messi.pelear(tomi)
+   assert.equals(95, tomi.getPuntosDeVida())
+ }
+
+ test "poder de todas las armas de jeronimo con espada sumada" {
+   jeronimo.agregarArma(espada)
+   assert.equals(55, jeronimo.poderDeTodasSusArmas())
+ }
+
+ test "grupo elegir campeon" {
+   assert.equals(jeronimo, bestias.elegirCampeon())
+ }
+
+ test "combatir contra grupo mirmillone" {
+   const maletas = new Grupo(nombre = "maletas")
+   maletas.agregarMiembro(tomi)
+   maletas.agregarMiembro(charles)
+   bestias.combatir(maletas)
+   assert.equals(1, bestias.getCantPeleas())
+ }
+
+ test "grupos coliseo" {
+   const maletas = new Grupo(nombre = "maletas")
+   maletas.agregarMiembro(tomi)
+   maletas.agregarMiembro(charles)
+   bestias.combatir(maletas)
+   coliseo.agregarGrupo(bestias)
+   coliseo.agregarGrupo(maletas)
+   assert.equals(#{bestias, maletas}, coliseo.getGrupos())
+ }
+
+ test "curar a tomi" {
+   messi.pelear(tomi)
+   coliseo.curarGladiador(tomi)
+   assert.equals(100, tomi.getPuntosDeVida())
+ }
+
+ test "description" {
+    const maletas = new Grupo(nombre = "maletas")
+   maletas.agregarMiembro(tomi)
+   maletas.agregarMiembro(charles)
+   bestias.combatir(maletas)
+   coliseo.agregarGrupo(bestias)
+   coliseo.agregarGrupo(maletas)
+   tomi.pelear(jeronimo)
+   tomi.pelear(messi)
+   coliseo.curarGrupo(bestias)
+   assert.equals(100, messi.getPuntosDeVida())
+   assert.equals(100, jeronimo.getPuntosDeVida())
+ }
 
 }
+
+
+
+

@@ -1,6 +1,14 @@
 object coliseo {
     const grupos = #{}
 
+    method agregarGrupo(unGrupo) {
+      grupos.add(unGrupo)
+    }
+
+    method eliminarGrupo(unGrupo) {
+      grupos.remove(unGrupo)
+    }
+
     method curarGrupo(unGrupo) {
         unGrupo.getMiembros().forEach({e => e.curar()})
     }

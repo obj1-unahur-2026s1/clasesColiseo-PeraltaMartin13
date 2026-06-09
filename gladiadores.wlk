@@ -80,10 +80,10 @@ class Dimachaeru inherits Gladiador{
       destreza += 1
     }
     override method crearGrupoCon(unGladiador){
-        const grupo = new Grupo(nombre = "D-{self.poderDeAtaque() + unGladiador.poderDeAtaque()}") //PREGUNTAR POR CREAR GRUPOS
-        grupo.agregarMiembro(unGladiador)
-        grupo.agregarMiembro(self)
-        return grupo
+        const grupoD = new Grupo(nombre = "D-"+ (self.poderDeAtaque() + unGladiador.poderDeAtaque())) //PREGUNTAR POR CREAR GRUPOS
+        grupoD.agregarMiembro(unGladiador)
+        grupoD.agregarMiembro(self)
+        return grupoD
     }  
 
 }
